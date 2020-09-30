@@ -1,10 +1,9 @@
-import Kiwi from './Kiwi.jpg'
 
 function addImage() {
     const img = document.createElement('img');
     img.alt = 'kiwi';
     img.width = 300;
-    img.src = Kiwi;
+    // img.src = Kiwi;
     const body = document.querySelector('body');
     body.appendChild(img);
 }

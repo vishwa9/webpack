@@ -1,14 +1,21 @@
 const path = require('path');
-const loader = require('sass-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: 'dist/'
+        publicPath: ''
     },
-    mode: 'none',
+    mode: 'development',
+    devServer: {
+        contentBase: path.resolve(__dirname, './dist'),
+        index: 'index.html',
+        port: 9000
+    },
     module: {
         rules: [
             {
@@ -39,7 +46,27 @@ module.exports = {
                         plugins: ['transform-class-properties']
                     }
                 }
+            },
+            {
+                test: /\.hbs$/,
+                use: [
+                    'handlebars-loader'
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [
+                '**/*',
+                path.join(process.cwd(), 'build/**/*')
+            ]
+        }),
+        new HtmlWebpackPlugin({
+            title: 'webpack configuration by vishwa',
+            // filename: 'subfolder/custom_filename.html',
+            template: 'src/index.hbs',
+            description: 'webpack configuration'
+        })
+    ]
 }
