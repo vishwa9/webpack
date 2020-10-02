@@ -11,7 +11,7 @@ module.exports = {
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: ''
+        publicPath: '/static/'
     },
     mode: 'production',
     optimization: {
@@ -56,6 +56,18 @@ module.exports = {
                 test: /\.hbs$/,
                 use: [
                     'handlebars-loader'
+                ]
+            },
+            {
+                test: /\.(ttf)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/'
+                        }
+                    }
                 ]
             }
         ]

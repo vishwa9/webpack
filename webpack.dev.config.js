@@ -55,6 +55,18 @@ module.exports = {
                 use: [
                     'handlebars-loader'
                 ]
+            },
+            {
+                test: /\.ttf$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/'
+                        }
+                    }
+                ]
             }
         ]
     },
